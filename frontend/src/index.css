@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --breakpoint-3xl: 1920px;
+
+  /* Brand */
+  --color-primary:     #FF9324;
+  --color-primary-dim: rgba(255, 147, 36, 0.12);
+  --color-primary-glow:rgba(255, 147, 36, 0.25);
+
+  /* Surfaces */
+  --hw-bg:        #F8FAFC;
+  --hw-surface:   #FFFFFF;
+  --hw-surface-2: #F1F5F9;
+  --hw-surface-3: #E2E8F0;
+
+  /* Borders */
+  --hw-border:    #E2E8F0;
+  --hw-border-2:  #CBD5E1;
+
+  /* Text */
+  --hw-text:      #111827;
+  --hw-text-2:    #475569;
+  --hw-text-3:    #64748B;
+
+  /* Shadows */
+  --hw-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --hw-shadow-glow: 0 4px 14px 0 rgba(255, 147, 36, 0.2);
+}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-display);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--hw-bg);
+    color: var(--hw-text);
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background-color: rgba(255, 147, 36, 0.25);
+    color: #FF9324;
+  }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--hw-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 147, 36, 0.25);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 147, 36, 0.45);
+}
+
+.custom-scrollbar::-webkit-scrollbar { width: 5px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 147, 36, 0.2);
+  border-radius: 10px;
+}
+
+/* ─── Form Utilities ─────────────────────────────────────────── */
+.input-box {
+  @apply w-full flex items-center gap-3 bg-white border border-[#E2E8F0]
+         rounded-xl px-4 py-3 text-sm text-[#111827]
+         transition-all duration-200 outline-none
+         focus-within:border-[#FF9324] focus-within:shadow-[0_0_0_3px_rgba(255,147,36,0.15)];
+}
+.input-box input {
+  background: transparent;
+  outline: none;
+  width: 100%;
+  color: #111827;
+}
+.input-box input::placeholder {
+  color: #94A3B8;
+}
+
+/* ─── Button Utilities ───────────────────────────────────────── */
+.btn-primary {
+  @apply w-full flex items-center justify-center gap-2.5
+         text-sm font-semibold text-white
+         bg-[#FF9324] hover:bg-[#e8831a]
+         px-5 py-3 rounded-xl
+         transition-all duration-200
+         shadow-[0_4px_10px_rgba(255,147,36,0.2)]
+         hover:shadow-[0_6px_15px_rgba(255,147,36,0.3)]
+         active:scale-[0.98]
+         disabled:opacity-50 disabled:cursor-not-allowed
+         cursor-pointer;
+}
+
+.btn-ghost {
+  @apply flex items-center justify-center gap-2
+         text-sm font-medium text-[#475569]
+         bg-white hover:bg-gray-50
+         border border-[#E2E8F0] hover:border-[#CBD5E1]
+         px-4 py-2.5 rounded-xl
+         transition-all duration-200
+         cursor-pointer shadow-sm;
+}
+
+.btn-small {
+  @apply flex items-center justify-center gap-2
+         text-sm font-semibold
+         bg-[#FF9324] hover:bg-[#e8831a] text-white
+         px-6 py-2.5 rounded-xl
+         transition-all duration-200
+         shadow-[0_4px_10px_rgba(255,147,36,0.2)]
+         hover:shadow-[0_6px_15px_rgba(255,147,36,0.3)]
+         active:scale-[0.97]
+         cursor-pointer;
+}
+
+.btn-danger {
+  @apply flex items-center justify-center gap-2
+         text-sm font-semibold text-white
+         bg-rose-600 hover:bg-rose-500
+         px-5 py-2.5 rounded-xl
+         transition-all duration-200
+         shadow-[0_4px_10px_rgba(225,29,72,0.15)]
+         cursor-pointer;
+}
+
+/* ─── Card Utilities ─────────────────────────────────────────── */
+.hw-card {
+  background: var(--hw-surface);
+  border: 1px solid var(--hw-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--hw-shadow-card);
+}
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@layer utilities {
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slide-right {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  .animate-fade-up     { animation: fade-up 0.5s ease forwards; }
+  .animate-fade-in     { animation: fade-in 0.4s ease forwards; }
+  .animate-slide-right { animation: slide-right 0.4s ease forwards; }
+  .animate-glow-pulse  { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+  /* Legacy blobs (landing page) */
+  @keyframes blob1 {
+    0%,100% { transform: translate(0px,0px) scale(1); }
+    33%     { transform: translate(30px,-60px) scale(1.1); }
+    66%     { transform: translate(-20px,20px) scale(0.9); }
+  }
+  @keyframes blob2 {
+    0%,100% { transform: translate(0px,0px) scale(1); }
+    33%     { transform: translate(-40px,60px) scale(1.05); }
+    66%     { transform: translate(20px,-40px) scale(0.95); }
+  }
+  @keyframes text-shine {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  .animate-text-shine { animation: text-shine 3s ease-in-out infinite alternate; }
+  .animate-blob1 { animation: blob1 8s ease-in-out infinite; }
+  .animate-blob2 { animation: blob2 8s ease-in-out infinite; }
+
+  /* Skeleton shimmer */
+  @keyframes shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position: 600px 0; }
+  }
+  .skeleton {
+    background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+    background-size: 600px 100%;
+    animation: shimmer 1.8s infinite linear;
+    border-radius: 6px;
+  }
+}
